@@ -1,133 +1,153 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | WebMol</title>
-    <script src="Build/UnityLoader.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/WebMolUnity.json");
-	  
-	  var lastPDB="1a3n";
-	  
-	  function NewPDB(id){
-		  gameInstance.SendMessage("PDB","Load",id);
-		  lastPDB=id;
-	  }
-	  
-	  function SwitchPDB(id1, id2){
-		  gameInstance.SendMessage("PDB","Switch",id1+" "+id2);
-		  lastPDB=id1;
-	  }
-	  
-	  function ComponentInfo(str){
-		  
-		  
-		  
-		  document.getElementById("components").innerHTML="";
-		  
-		  info = str.split("\n");
-		  
-		  document.getElementById("title").innerHTML=info[0];
-		  
-		  for(i=1;i<info.length;i++){
-			  
-			  line = info[i].split("\t");
-			  
-			  cont="";
-			  for(j=2;j<line.length;j++){	  
-				  cont+="<div style='background-color:#f0f0f0; border-radius:2px; margin:2px; '>"+line[j]+"</div>";
-			  }
-			  
-			  ligands = "<div style='border-radius:2px; margin:5px; margin-top:-2px; border: solid 1px  #e0e0e0; background-color:#e0e0e0;'>"+cont+"</div>"
-		  	  
-			  document.getElementById("components").innerHTML += "<div style='margin-top:15px;'><div style = 'margin-top:-10px; float:left; color:white; font-weight:900; width:13px; background-color:#b9b9b9; border-radius:10px; border:solid 2px #e0e0e0; '>"+line[0]+"</div>";
-			  
-			  document.getElementById("components").innerHTML += "<div style=' background-color:#e0e0e0; border-radius:3px; margin:1px;'>"+line[1]+"</div>";
-			  
-			  document.getElementById("components").innerHTML += ligands+"</div>";
-			  													
-	  	  }
-		  
-          
-          height = $('#title').height();
-		  
-		  document.getElementById("components").style.maxHeight = (450-height-10)+"px";
-		  
-		  $('#info').css('margin-top',height+10);
-		  $('#title').css('margin-top',-height+5);
-		  
-		  
-	  }
-	  
-	  
-    </script>
-	<style>
-		
-		.btn {
-			padding-top:2px;
-			font-family: "Courier New";
-			color:grey;
-		    font-size:16px;
-			border-radius: 30px;
-			line-height:20px;
-			border:none;
-			outline: none;
-			background-color:#EEEEEE;
-			box-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
-			
-			
-			
-		}
-		.fld {
-			padding-top:2px;
-			font-family: "Courier New";
-			color:grey;
-		    font-size:16px;
-			border-radius: 2px;
-			line-height:20px;
-			border:none;
-			outline: none;
-			font-weight: 900;
-			text-align:center;
-			text-transform:uppercase;
-			
-		}
-		
-		
-		
-	</style>
-  </head>
-  <body>
-	  
-	  <div style="height: 50px; background-color:#798ead;"></div>
-	  
-	  <div align="center">
-		<div style="width:600px;">
-			<div id="info" style=" border:solid 1px #e0e0e0; border-radius:10px; max-height:450px; position:absolute; margin-left:-200px; margin-top:30px; margin-bottom:5px; float:left; width: 250px; background-color:#F8F8F8;">
-				
-				<div id="title" style=" font-weight:900; font-size:10px;  color:grey; font-family: 'Courier New';line-height:13px; box-shadow: 0px 0px 5px #78838c; position:relative;  margin-top:-20px;margin-left:-40px;  border-radius:10px; padding:1px; float:top; width: 200px; background-color:#EEEEEE;">oiuztr ertzu</div>
-				
-				
-				<div id="components" style="margin-bottom:5px; max-height:250px; overflow:scroll; font-size:10px;  color:grey; font-family: 'Courier New';line-height:13px; box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .2); margin-left:-40px; margin-top:5px;  border-radius:10px; padding:5px; padding-top:0px; width: 190px; background-color:#EEEEEE;"></div>
-			
-				
-			</div>
-	  		<div align="center" style="width: 600px; height: 500px; overflow:hidden; margin:10px; margin-bottom:5px; display: inline-block; border:solid #e0e0e0 1px; border-radius:20px; box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .3); ">
-    	  	  <div id="gameContainer" style="width: 600px; height: 520px;"></div>
-	  		</div>
-		</div>
-	  
-	  	<div align="center"  style="width:206px; margin-top:-21px; padding-top:15px; height: 25px; background-color:#798ead; border:solid #4a5a72 0px; border-radius:2px;">
-			<input class="fld" style="width:200px;" type="text" name="PDBID" id="PDBID" value="1a3n">
-	  		<button class="btn" style="position:absolute; margin-top:10px;margin-left:-20px;" onclick="SwitchPDB(document.getElementById('PDBID').value,lastPDB)">PDB</button>
-			
-	  	</div>
-		
-		
-	 </div>
-	 
-  </body>
+<!doctype html>
 
+<html lang="en" style = "height:100%;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A Basic HTML5 Template</title>
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body style = "height:100%; width:100%; margin:0px; background-color:rgb(40,40,40);">
+    <script src="net_data.js"></script>
+    <script src="net.js"></script>
+    
+    <script>
+        //show_image("bdsl.png");
+    </script>
+    <div>
+        <div id="menu_container" style="height:30px; background-color: rgb(50,50,50); color:#aaaaaa; font-family: sans-serif;"></div>
+    </div>
+    <div id="img_container" style="position:absolute;"></div>
+    <div id="net_container" style="position:absolute; margin-top: 0px;"></div>
+    <div id="main_container"></div>
+    
+    
+    
+    <script>
+        add_menu_entry('Home');
+        add_menu_entry('About Us');
+        add_menu_entry('Data Analysis');
+        add_menu_entry('AI Development');
+
+        
+
+        create_net('net_container');
+        show_image("bdsl.png");
+
+        window.onresize = function(){
+            var h = window.innerHeight - document.getElementById('net_container').offsetHeight - 40;
+            document.getElementById('main_container').setAttribute("style","height:"+h+"px; margin:10px; margin-top: "+(document.getElementById('net_container').offsetHeight)+"px; background-color:rgb(50,50,50);");
+        }
+        window.onresize();
+        
+        const start = Date.now();
+
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    
+        document.addEventListener('mousemove', onMouseUpdate, false);
+        document.addEventListener('mouseenter', onMouseUpdate, false);
+            
+        var svg = document.getElementById("svg_element");
+        var pt = svg.createSVGPoint();
+
+
+        var mouseX = 0;
+        var mouseY = 0;
+
+        function cursorPoint(evt){
+            pt.x = evt.clientX; pt.y = evt.clientY;
+            return pt.matrixTransform(svg.getScreenCTM().inverse());
+        }
+
+        function onMouseUpdate(e) {
+            let loc = cursorPoint(e);
+            mouseX = loc.x;
+            mouseY = loc.y;
+        }
+
+        var active_index = 0;
+        var circles = document.getElementById("svg_element").childNodes;
+        var mods = [];
+        for (i = 0; i < circles.length; i++){
+            mods[i] = 0;
+        }
+        
+
+        var ellapsed;
+        var circle;
+        var x;
+        var y;
+        var m;
+        var i;
+
+        function loop(){
+            ellapsed = Date.now()-start;
+            for (i = 1; i < circles.length-20; i++){
+                circle = circles[i];
+                x = circle.getAttribute("cx");
+                y = circle.getAttribute("cy");
+                m = (mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y);
+                m = Math.max(4000,m);
+                if(i==active_index){
+                    circle.setAttributeNS(null, 'r', 10);
+                }else{
+                    circle.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2 + 4000.0/m*3 + mods[i]);
+                }
+            }
+            
+            window.requestAnimationFrame(loop);
+        }
+
+        loop();
+
+
+        function activate_menu_entry(label, content, circle_index){
+            mods[circle_index] = 5;
+            circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0;');
+            document.getElementById(label).onclick = function(){
+                active_index = circle_index;
+                document.getElementById('main_container').innerHTML = content;
+                if(active_index==0){
+                    menu_lines.forEach(line => {
+                        line.setAttribute('stroke-width',0);
+                    });
+                }else{
+                    menu_lines.forEach(line => {
+                        line.setAttribute('stroke-width',3);
+                    });
+                    reposition_lines(circle_index);
+                }  
+                    
+                
+
+            }
+            circles[circle_index].onclick = document.getElementById(label).onclick;
+        }
+
+        activate_menu_entry('Home', 'fufufufufuf',0);
+        activate_menu_entry('About Us', 'fufufufufuf',671);
+        activate_menu_entry('Data Analysis', 'blablabla',896);
+        activate_menu_entry('AI Development', 'dgdgdgdgdg',788);
+        
+        function reposition_lines(index){
+            menu_lines.forEach(line => {
+                console.log(circles[index]);
+                line.setAttribute('x1',circles[index].getAttribute('cx'));
+                line.setAttribute('y1',circles[index].getAttribute('cy'));
+            });
+        }
+
+        
+        
+
+    </script>
+
+</body>
 </html>
