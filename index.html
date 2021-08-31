@@ -80,14 +80,18 @@
         }
         
 
-        var ellapsed;
-        var circle;
-        var x;
-        var y;
-        var m;
-        var i;
+        
 
         function loop(){
+            var ellapsed;
+            var circle;
+            var x;
+            var y;
+            var m;
+            var i;
+            var lcol;
+            var f;
+            
             ellapsed = Date.now()-start;
             for (i = 1; i < circles.length-20; i++){
                 circle = circles[i];
@@ -96,21 +100,27 @@
                 m = (mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y);
                 m = Math.max(4000,m);
                 if(i==active_index){
-                    circle.setAttributeNS(null, 'r', 10);
+                    circle.setAttributeNS(null, 'r', 15);
                 }else{
                     circle.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2 + 4000.0/m*3 + mods[i]);
                 }
+                if(mods[i]==0){
+                    f = (4000/m);
+                    lcol = 'rgb('+((85-128)*f+128)+',128,'+((175-128)*f+128)+')';
+                    circle.setAttributeNS(null, 'style', 'fill:'+lcol+';');
+                }
             }
             
-            window.requestAnimationFrame(loop);
+            
+            //window.requestAnimationFrame(loop);
         }
 
-        loop();
+        
 
 
         function activate_menu_entry(label, content, circle_index){
-            mods[circle_index] = 5;
-            circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0;');
+            mods[circle_index] = 10;
+            circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0; stroke:grey; stroke-width:2;');
             document.getElementById(label).onclick = function(){
                 active_index = circle_index;
                 document.getElementById('main_container').innerHTML = content;
@@ -143,6 +153,9 @@
                 line.setAttribute('y1',circles[index].getAttribute('cy'));
             });
         }
+
+
+        setInterval(loop,1000/60.0);
 
         
         
