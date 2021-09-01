@@ -100,7 +100,7 @@
         function init_mobile(){
             if(isMobile){
                 var container = document.getElementById('menu_container');
-                container.innerHTML += "<span id='mobile_menu' style='margin-left:20px; height:30px; line-height:30px; font-size:30px; cursor:pointer;'>&#9776;</span>";
+                container.innerHTML += "<span id='mobile_menu' style='vertical-align: middle; margin-left:20px; height:30px; line-height:30px; font-size:30px; cursor:pointer;'>&#9776;</span>";
                 
                 document.getElementById('mobile_menu').onclick = function(){
                     toggle_mobile_menu();
@@ -108,12 +108,10 @@
 
 
                 var mobile_menu_container = document.getElementById('mobile_menu_container');
-                mobile_menu_container.style.backgroundColor = 'rgba(80,80,80,0.7)';
+                mobile_menu_container.style.backgroundColor = 'rgba(80,80,80,0.8)';
                 mobile_menu_container.style.color = 'rgb(200,200,200)';
-                mobile_menu_container.style.strokeOpacity = 1;
                 mobile_menu_container.style.marginLeft = '10px';
                 mobile_menu_container.style.marginRight = '10px';
-                mobile_menu_container.style.opacity = 1;
                 mobile_menu_container.style.overflowY = 'hide';
                 mobile_menu_container.style.width = 'auto';
                 
