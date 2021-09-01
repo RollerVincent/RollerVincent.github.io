@@ -7,7 +7,7 @@ function circle(svg, x,y,r){
     circle.setAttributeNS(null, 'cy', y);
     circle.setAttributeNS(null, 'r', r);
     circle.setAttributeNS(null, 'style', 'fill:grey;' );
-  /*  circle.onclick = function(){
+    circle.onclick = function(){
         s = 0;
         svg.childNodes.forEach(c => {
             if(c==circle){
@@ -15,7 +15,7 @@ function circle(svg, x,y,r){
             }
             s += 1;
         });
-    }*/
+    }
     //circle.innerHTML = '<animate attributeName="r" begin="0s" dur="1s" repeatCount="indefinite" from="2" to="5"/><animate attributeName="r" begin="1s" dur="1s" repeatCount="indefinite" from="5" to="2"/>';
     svg.appendChild(circle);
     return circle;
@@ -89,11 +89,17 @@ function show_image(src, width, height) {
 
 }
 
-function add_menu_entry(label, content){
-    var container = document.getElementById('menu_container');
-    container.innerHTML += "<span id='"+label+"' style='margin-left:20px; height:30px; line-height:30px; cursor:pointer;'>"+label+"</span>";
+function add_menu_entry(label, mobile){
+    if(!mobile){
+        var container = document.getElementById('menu_container');
+        container.innerHTML += "<span id='"+label+"' style='margin-left:20px; height:30px; line-height:30px; cursor:pointer;'>"+label+"</span>";    
+    }else{
+        var container = document.getElementById('mobile_menu_container');
+        container.innerHTML += "<div id='"+label+"' class='mobile_menu_entry' style='transition: height 0.25s; overflow:hidden; padding-left:20px; height:0px; line-height:30px; cursor:pointer; opacity:1.0;'>"+label+"</div>";    
 
-    var element = container.childNodes[container.childElementCount-1];
+
+    }
+    
     
 
     
