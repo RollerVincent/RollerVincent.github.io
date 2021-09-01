@@ -34,8 +34,6 @@
         add_menu_entry('Data Analysis');
         add_menu_entry('AI Development');
 
-        
-
         create_net('net_container');
         show_image("bdsl.png");
 
@@ -47,16 +45,11 @@
         
         const start = Date.now();
 
-        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-    
         document.addEventListener('mousemove', onMouseUpdate, false);
         document.addEventListener('mouseenter', onMouseUpdate, false);
             
         var svg = document.getElementById("svg_element");
         var pt = svg.createSVGPoint();
-
 
         var mouseX = 0;
         var mouseY = 0;
@@ -72,29 +65,17 @@
             mouseY = loc.y;
         }
 
-        var active_index = 0;
-        var circles = document.getElementById("svg_element").childNodes;
-        var mods = [];
-        for (i = 0; i < circles.length; i++){
-            mods[i] = 0;
-        }
         
 
         
 
         function loop(){
-            var ellapsed;
-            var circle;
-            var x;
-            var y;
-            var m;
-            var i;
-            var lcol;
-            var f;
             
-            ellapsed = Date.now()-start;
-            for (i = 1; i < circles.length-20; i++){
-                circle = circles[i];
+            var ellapsed = Date.now()-start;
+            var svg_children = document.getElementById('svg_element').childNodes;
+            for (i = 0; i < svg_children.length; i++){
+                var node = svg_children[i];
+                /*circle = circles[i];
                 x = circle.getAttribute("cx");
                 y = circle.getAttribute("cy");
                 m = (mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y);
@@ -108,7 +89,7 @@
                     f = (4000/m);
                     lcol = 'rgb('+((85-128)*f+128)+',128,'+((175-128)*f+128)+')';
                     circle.setAttributeNS(null, 'style', 'fill:'+lcol+';');
-                }
+                }*/
             }
             
             
@@ -119,12 +100,11 @@
 
 
         function activate_menu_entry(label, content, circle_index){
-            mods[circle_index] = 10;
-            circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0; stroke:grey; stroke-width:2;');
+            //circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0; stroke:grey; stroke-width:2;');
             document.getElementById(label).onclick = function(){
-                active_index = circle_index;
+                //active_index = circle_index;
                 document.getElementById('main_container').innerHTML = content;
-                if(active_index==0){
+                /*if(active_index==0){
                     menu_lines.forEach(line => {
                         line.setAttribute('stroke-width',0);
                     });
@@ -133,12 +113,12 @@
                         line.setAttribute('stroke-width',3);
                     });
                     reposition_lines(circle_index);
-                }  
+                }*/  
                     
                 
 
             }
-            circles[circle_index].onclick = document.getElementById(label).onclick;
+            //circles[circle_index].onclick = document.getElementById(label).onclick;
         }
 
         activate_menu_entry('Home', 'fufufufufuf',0);
@@ -146,13 +126,13 @@
         activate_menu_entry('Data Analysis', 'blablabla',896);
         activate_menu_entry('AI Development', 'dgdgdgdgdg',788);
         
-        function reposition_lines(index){
+       /* function reposition_lines(index){
             menu_lines.forEach(line => {
                 console.log(circles[index]);
                 line.setAttribute('x1',circles[index].getAttribute('cx'));
                 line.setAttribute('y1',circles[index].getAttribute('cy'));
             });
-        }
+        }*/
 
 
         setInterval(loop,1000/60.0);
