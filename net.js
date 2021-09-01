@@ -89,15 +89,23 @@ function show_image(src, width, height) {
 
 }
 
+var alt = true;
 function add_menu_entry(label, mobile){
     if(!mobile){
         var container = document.getElementById('menu_container');
         container.innerHTML += "<span id='"+label+"' style='margin-left:20px; height:30px; line-height:30px; cursor:pointer;'>"+label+"</span>";    
     }else{
         var container = document.getElementById('mobile_menu_container');
-        container.innerHTML += "<div id='"+label+"' class='mobile_menu_entry' style='transition: height 0.25s; overflow:hidden; padding-left:20px; height:0px; line-height:30px; cursor:pointer; opacity:1.0;'>"+label+"</div>";    
+        container.innerHTML += "<div id='"+label+"' class='mobile_menu_entry' style='transition: height 0.25s; overflow:hidden; padding-left:20px; height:0px; line-height:40px; font-size:20px; cursor:pointer; opacity:1.0;'>"+label+"</div>";    
+        if(alt){
+            document.getElementById(label).style.backgroundColor = 'rgba(0,0,0,0.1)';
+        }
 
-
+    }
+    if(alt){
+        alt=false;
+    }else{
+        alt=true;
     }
     
     

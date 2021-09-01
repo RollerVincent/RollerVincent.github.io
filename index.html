@@ -88,7 +88,7 @@
             }else{
                 for (let i = 0; i < entries.length; i++){
                     let entry = entries[i];
-                    entry.style.height = '30px';
+                    entry.style.height = '40px';
                     mobile_menu_active = true;
                 }
             }
@@ -100,7 +100,7 @@
         function init_mobile(){
             if(isMobile){
                 var container = document.getElementById('menu_container');
-                container.innerHTML += "<span id='mobile_menu' style='margin-left:20px; height:30px; line-height:30px; cursor:pointer;'>&#9776;</span>";
+                container.innerHTML += "<span id='mobile_menu' style='margin-left:20px; height:30px; line-height:30px; font-size:30px; cursor:pointer;'>&#9776;</span>";
                 
                 document.getElementById('mobile_menu').onclick = function(){
                     toggle_mobile_menu();
