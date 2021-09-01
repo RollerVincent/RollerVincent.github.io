@@ -73,12 +73,20 @@
             
             var ellapsed = Date.now()-start;
             var svg_children = document.getElementById('svg_element').childNodes;
-            for (i = 0; i < svg_children.length; i++){
+            for (var i = 0; i < svg_children.length; i++){
                 var node = svg_children[i];
                 if(node.getAttribute('class') == 'net_circle'){
                     var x = node.getAttribute("cx");
                     var y = node.getAttribute("cy");
-                    node.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2);
+                    var m = (mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y);
+                    m = Math.max(4000,m);
+                    node.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2 + 4000.0/m*3);
+                }else if(node.getAttribute('class') == 'activated_circle'){
+                    var x = node.getAttribute("cx");
+                    var y = node.getAttribute("cy");
+                    var m = (mouseX-x)*(mouseX-x) + (mouseY-y)*(mouseY-y);
+                    m = Math.max(4000,m);
+                    node.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2 + 4000.0/m*3 + 6);
                 }
                 /*circle = circles[i];
                 x = circle.getAttribute("cx");
@@ -101,10 +109,9 @@
             //window.requestAnimationFrame(loop);
         }
 
-        
-
-
         function activate_menu_entry(label, content, circle_index){
+            
+            
             //circles[circle_index].setAttributeNS(null, 'style', 'fill:steelblue; opacity:1.0; stroke:grey; stroke-width:2;');
             document.getElementById(label).onclick = function(){
                 //active_index = circle_index;
@@ -123,7 +130,13 @@
                 
 
             }
-            //circles[circle_index].onclick = document.getElementById(label).onclick;
+            if(circle_index != 0){
+                var svg_children = document.getElementById('svg_element').childNodes;
+                svg_children[circle_index].setAttributeNS(null, 'style', 'fill:grey; stroke:steelblue; stroke-width:5; cursor:pointer;');
+                svg_children[circle_index].setAttributeNS(null, 'r', 8);
+                svg_children[circle_index].setAttributeNS(null, 'class', 'activated_circle');
+                svg_children[circle_index].onclick = document.getElementById(label).onclick;
+            }
         }
 
         activate_menu_entry('Home', 'fufufufufuf',0);
@@ -131,17 +144,16 @@
         activate_menu_entry('Data Analysis', 'blablabla',896);
         activate_menu_entry('AI Development', 'dgdgdgdgdg',788);
         
-       /* function reposition_lines(index){
-            menu_lines.forEach(line => {
-                console.log(circles[index]);
-                line.setAttribute('x1',circles[index].getAttribute('cx'));
-                line.setAttribute('y1',circles[index].getAttribute('cy'));
-            });
-        }*/
+        
 
 
-        setInterval(loop,1000/60.0);
+        
+        function run(){
+            loop();
+            requestAnimationFrame(run);
+        }
 
+        run();
         
         
 
