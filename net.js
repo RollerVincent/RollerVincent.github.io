@@ -36,39 +36,28 @@ function line(svg, x1, y1, x2, y2, w){
 
 
 
-var menu_circles = [];
-var menu_lines = [];
-
 
 
 function create_net(containerId){
 
     container = document.getElementById(containerId);
-    //container.style.height = '100%';
     container.style.width = '100%';
 
     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.innerHTML += '<defs><linearGradient id="e" x1="0" y1="0" x2="0" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="steelblue" offset="0.8" /><stop stop-color="rgb(50,50,50)" offset="0.9" /></linearGradient></defs>'
     svg.setAttribute("id", "svg_element")
     svg.setAttribute("width", '100%');
-    //svg.setAttribute("height", '100%');
     svg.setAttribute("viewBox", '0 0 1920 680');
     
     document.getElementById(containerId).appendChild(svg);
 
-    var h = (30.0/container.clientHeight)*680;
-
     
-    
-
     for (let i = 0; i < pos_data.length-1; i++) {
-        circle(svg, pos_data[i][0], pos_data[i][1], 2);
-       // for (let j = 0; j < link_data[i].length; j++) {
-         //   line(svg, pos_data[i][0], pos_data[i][1], pos_data[link_data[i][j]][0], pos_data[link_data[i][j]][1], 1);
-        //}
+        var c = circle(svg, pos_data[i][0], pos_data[i][1], 2);
+        c.setAttributeNS(null, 'class', 'net_circle');
     }
 
-    for (let i = 0; i < 10; i++) {
+   /* for (let i = 0; i < 10; i++) {
         var lin = line(svg, 0, 0, 1920/11*(i+1), 680, 1);
         lin.setAttribute("stroke-width", 0);
         lin.setAttribute("opacity", 1);
@@ -81,7 +70,7 @@ function create_net(containerId){
         
         
 
-    }
+    }*/
 
 
 }

@@ -75,6 +75,11 @@
             var svg_children = document.getElementById('svg_element').childNodes;
             for (i = 0; i < svg_children.length; i++){
                 var node = svg_children[i];
+                if(node.getAttribute('class') == 'net_circle'){
+                    var x = node.getAttribute("cx");
+                    var y = node.getAttribute("cy");
+                    node.setAttributeNS(null, 'r', (Math.sin((x/1920.0*50 + ellapsed/700)+(y/1920.0*100 + ellapsed/800))+1)*0.5*3 + 2);
+                }
                 /*circle = circles[i];
                 x = circle.getAttribute("cx");
                 y = circle.getAttribute("cy");
