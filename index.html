@@ -100,7 +100,7 @@
         function init_mobile(){
             if(isMobile){
                 var container = document.getElementById('menu_container');
-                container.innerHTML += "<span id='mobile_menu' style='vertical-align: middle; margin-left:20px; height:30px; line-height:30px; font-size:30px;'>&fufufuf-----;</span>";//&#9776;</span>";
+                container.innerHTML += "<span id='mobile_menu' style='vertical-align: middle; margin-left:20px; height:30px; line-height:30px; font-size:30px;'>&#9776;</span>";
                 
                 document.getElementById('mobile_menu').onclick = function(){
                     if(!mobile_menu_active){
@@ -152,7 +152,7 @@
 
         window.addEventListener('touchend', event => {
             if(isMobile && mobile_menu_active){
-                toggle_mobile_menu();
+                window.setTimeout(toggle_mobile_menu, 100);
             }
         })
 
