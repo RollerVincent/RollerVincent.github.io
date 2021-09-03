@@ -93,7 +93,11 @@ var alt = true;
 function add_menu_entry(label, mobile){
     if(!mobile){
         var container = document.getElementById('menu_container');
-        container.innerHTML += "<span id='"+label+"' style='margin-left:20px; height:30px; line-height:30px; cursor:pointer;'>"+label+"</span>";    
+        if(container.childNodes.length != 0){
+            container.innerHTML += "<span id='"+label+"' style='border-left:solid 1px grey; padding-right:10px; padding-left:10px; height:30px; line-height:30px; font-size:15px; cursor:pointer; vertical-align:middle;'>"+label+"</span>";    
+        }else{
+            container.innerHTML += "<span id='"+label+"' style='padding-left:10px; margin-left:10px; padding-right:10px; height:30px; line-height:30px; font-size:15px; cursor:pointer; vertical-align:middle;'>"+label+"</span>";    
+        }
     }else{
         var container = document.getElementById('mobile_menu_container');
         container.innerHTML += "<div id='"+label+"' class='mobile_menu_entry' style='transition: height 0.25s; overflow:hidden; padding-left:20px; height:0px; line-height:40px; font-size:20px; cursor:pointer; opacity:1.0;'>"+label+"</div>";    

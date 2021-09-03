@@ -20,7 +20,7 @@
         //show_image("bdsl.png");
     </script>
     <div>
-        <div id="menu_container" style="height:30px; background-color: rgb(50,50,50); color:#aaaaaa; font-family: sans-serif;"></div>
+        <div id="menu_container" style="margin:0px; padding:0px; height:30px; background-color: rgb(50,50,50); color:#aaaaaa; font-family: sans-serif;"></div>
     </div>
     <div id="img_container" style="position:absolute;"></div>
     <div id="net_container" style="position:absolute; margin-top: 0px;"></div>
@@ -49,8 +49,8 @@
         show_image("bdsl.png");
 
         window.onresize = function(){
-            var h = window.innerHeight - document.getElementById('net_container').offsetHeight - 40;
-            document.getElementById('main_container').setAttribute("style","height:"+h+"px; margin:10px; margin-top: "+(document.getElementById('net_container').offsetHeight)+"px; background-color:rgb(50,50,50);");
+            var h = window.innerHeight - document.getElementById('net_container').offsetHeight - 40 + 4;
+            document.getElementById('main_container').setAttribute("style","height:"+h+"px; margin:10px; margin-top: "+(document.getElementById('net_container').offsetHeight - 4)+"px; background-color:rgb(50,50,50);");
         }
         window.onresize();
         
@@ -100,10 +100,13 @@
         function init_mobile(){
             if(isMobile){
                 var container = document.getElementById('menu_container');
-                container.innerHTML += "<span id='mobile_menu' style='vertical-align: middle; margin-left:20px; height:30px; line-height:30px; font-size:30px; cursor:pointer;'>&#9776;</span>";
+                container.innerHTML += "<span id='mobile_menu' style='vertical-align: middle; margin-left:20px; height:30px; line-height:30px; font-size:30px;'>&fufufuf-----;</span>";//&#9776;</span>";
                 
                 document.getElementById('mobile_menu').onclick = function(){
-                    toggle_mobile_menu();
+                    if(!mobile_menu_active){
+                        toggle_mobile_menu();
+                    }
+                    
                 };
 
 
@@ -147,6 +150,12 @@
           
         }
 
+        window.addEventListener('touchend', event => {
+            if(isMobile && mobile_menu_active){
+                toggle_mobile_menu();
+            }
+        })
+
         function activate_menu_entry(label, content, circle_index){
             
             var svg_children = document.getElementById('svg_element').childNodes;
@@ -157,9 +166,9 @@
                 
                 activate_node(svg_children[circle_index], circle_index);
 
-                if(isMobile){
-                    toggle_mobile_menu();
-                }
+               // if(isMobile && mobile_menu_active){
+                 //   toggle_mobile_menu();
+                //}
                 
               
                 
@@ -234,7 +243,9 @@
                 
             }
             if(targetindex != 0){
+                document.getElementById("main_container").style.borderTop = 'solid 1px steelblue';
                 svg_children = document.getElementById('svg_element').childNodes;
+                var positions = [];
                 for (let i = 0; i < svg_children.length; i++){
                     let node = svg_children[i];
                     if(node.getAttribute('class') != 'activated_circle'){
@@ -250,6 +261,11 @@
                             l.setAttribute("opacity", 1);
                             l.setAttribute("stroke", 'steelblue');
                             l.setAttributeNS(null, 'class', 'tmp' );
+
+                            positions.push([node.getAttribute('cx'), node.getAttribute('cy'), node.getAttribute('r')]);
+                            //let ci = circle(svg, node.getAttribute('cx'), node.getAttribute('cy'),node.getAttribute('r')+2);
+                            //ci.setAttributeNS(null, 'style', 'fill:steelblue;' );
+                            //ci.setAttributeNS(null, 'class', 'tmp' );
 
                         }
 
@@ -269,6 +285,18 @@
                 c = circle(svg, target.getAttribute('cx'), 680 , target.getAttribute('r'));
                 c.setAttributeNS(null, 'style', 'fill:steelblue;');
                 c.setAttributeNS(null, 'class', 'tmp' );
+
+                console.log(positions.length);
+                for (let i = 0; i < positions.length; i++){
+                    console.log(positions[i]);
+                    c = circle(svg, positions[i][0], positions[i][1], parseFloat(positions[i][2])+2);
+                    c.setAttributeNS(null, 'style', 'fill:steelblue;' );
+                    //c.setAttributeNS(null, 'r', positions[i][2]+3 );
+                    c.setAttributeNS(null, 'class', 'tmp' );
+                }
+
+            }else{
+                document.getElementById("main_container").style.borderTop = 'none';
             }
             
         }
